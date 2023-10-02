@@ -1,0 +1,63 @@
+syntax = "proto3";
+
+import "google/protobuf/empty.proto";
+
+option java_multiple_files = true;
+option java_package = "com.learning.microservices.grpc";
+
+message EmployeeDto {
+
+   int64 id =1;
+   string firstName=2;
+   string lastName=3;
+   string email=4;
+   string departmentCode=5;
+   string organizationCode=6;
+}
+
+
+message EmployeeSaveRequest {
+
+  EmployeeDto employeeDto=1;
+}
+
+message EmployeeSaveResponse {
+  EmployeeDto employeeDto=1;
+}
+
+message EmployeeSearchRequest {
+  int64 id=1;
+}
+
+message EmployeeSearchResponse{
+  EmployeeDto employeeDto=1;
+}
+
+message EmployeeUpdateRequest {
+
+  EmployeeDto employeeDto=1;
+}
+
+message EmployeeUpdateResponse {
+  EmployeeDto employeeDto=1;
+}
+
+message AllEmployeeSearchResponse{
+  repeated  EmployeeDto employeeDto=1;
+}
+
+message EmployeeDeleteRequest {
+  int64 id=1;
+}
+
+message EmployeeDeleteResponse{
+  int64 status=1;
+}
+
+service EmployeeService {
+  rpc saveEmployee(EmployeeSaveRequest) returns (EmployeeSaveResponse);
+  rpc getEmployee(EmployeeSearchRequest) returns (EmployeeSearchResponse);
+  rpc updateEmployee(EmployeeUpdateRequest) returns (EmployeeUpdateResponse);
+  rpc getAllEmployee(google.protobuf.Empty) returns (AllEmployeeSearchResponse);
+  rpc deleteEmployee(EmployeeDeleteRequest) returns (EmployeeDeleteResponse);
+}

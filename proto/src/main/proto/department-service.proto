@@ -1,0 +1,66 @@
+syntax = "proto3";
+
+import "google/protobuf/empty.proto";
+option java_multiple_files = true;
+option java_package = "com.learning.microservices.grpc";
+
+
+message DepartmentDto {
+
+  int64  id =1;
+  string departmentName=2;
+  string departmentDescription=3;
+  string departmentCode=4;
+}
+
+message DepartmentSaveRequest {
+
+  DepartmentDto departmentDto=1;
+}
+
+message DepartmentSaveResponse {
+  DepartmentDto departmentDto=1;
+}
+
+message DepartmentSearchRequest {
+  int64 id=1;
+}
+
+message DepartmentSearchResponse{
+   DepartmentDto departmentDto=1;
+}
+
+message DepartmentUpdateRequest {
+
+  DepartmentDto departmentDto=1;
+}
+
+message DepartmentUpdateResponse {
+  DepartmentDto departmentDto=1;
+}
+
+message AllDepartmentSearchResponse{
+  repeated  DepartmentDto departmentDto=1;
+}
+
+message DepartmentDeleteRequest {
+  int64 id=1;
+}
+
+message DepartmentDeleteResponse{
+  int64 status=1;
+}
+
+message DepartmentByCodeRequest{
+  string departmentCode=1;
+}
+
+service DepartmentService {
+
+  rpc saveDepartment(DepartmentSaveRequest) returns (DepartmentSaveResponse);
+  rpc getDepartment(DepartmentSearchRequest) returns (DepartmentSearchResponse);
+  rpc updateDepartment(DepartmentUpdateRequest) returns (DepartmentUpdateResponse);
+  rpc getAllDepartment(google.protobuf.Empty) returns (AllDepartmentSearchResponse);
+  rpc deleteDepartment(DepartmentDeleteRequest) returns (DepartmentDeleteResponse);
+  rpc getDepartmentByCode(DepartmentByCodeRequest) returns (DepartmentSearchResponse);
+}

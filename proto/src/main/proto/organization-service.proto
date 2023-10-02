@@ -1,0 +1,68 @@
+
+syntax = "proto3";
+
+import "google/protobuf/empty.proto";
+
+option java_multiple_files = true;
+option java_package = "com.learning.microservices.grpc";
+
+message OrganizationDto {
+
+  int64 id=1;
+  string organizationName=2;
+  string organizationDescription=3;
+  string organizationCode=4;
+  string createDate=5;
+}
+
+
+message OrganizationSaveRequest {
+
+  OrganizationDto organizationDto=1;
+}
+
+message OrganizationSaveResponse {
+  OrganizationDto organizationDto=1;
+}
+
+message OrganizationSearchRequest {
+  int64 id=1;
+}
+
+message OrganizationSearchResponse{
+  OrganizationDto organizationDto=1;
+}
+
+message OrganizationUpdateRequest {
+
+  OrganizationDto organizationDto=1;
+}
+
+message OrganizationUpdateResponse {
+  OrganizationDto organizationDto=1;
+}
+
+message AllOrganizationSearchResponse{
+  repeated  OrganizationDto organizationDto=1;
+}
+
+message OrganizationDeleteRequest {
+  int64 id=1;
+}
+
+message OrganizationDeleteResponse{
+  int64 status=1;
+}
+
+message OrganizationByCodeRequest{
+  string organizationCode=1;
+}
+
+service OrganizationService {
+  rpc saveOrganization(OrganizationSaveRequest) returns (OrganizationSaveResponse);
+  rpc getOrganization(OrganizationSearchRequest) returns (OrganizationSearchResponse);
+  rpc updateOrganization(OrganizationUpdateRequest) returns (OrganizationUpdateResponse);
+  rpc getAllOrganization(google.protobuf.Empty) returns (AllOrganizationSearchResponse);
+  rpc deleteOrganization(OrganizationDeleteRequest) returns (OrganizationDeleteResponse);
+  rpc getOrganizationByCode(OrganizationByCodeRequest) returns (OrganizationSearchResponse);
+}
